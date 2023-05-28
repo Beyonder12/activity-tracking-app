@@ -38,7 +38,12 @@ function loadBooks() {
                 let authorCell = document.createElement('td');
                 let actionCell = document.createElement('td');
 
-                titleCell.textContent = book.title;
+                // Create a link to the detail page for this book
+                let detailLink = document.createElement('a');
+                detailLink.textContent = book.title;
+                detailLink.href = `detail.html?id=${book.id}`;
+                titleCell.appendChild(detailLink);
+
                 authorCell.textContent = book.author;
 
                 let editButton = document.createElement('button');

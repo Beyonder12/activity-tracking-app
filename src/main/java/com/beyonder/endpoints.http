@@ -1,7 +1,7 @@
 GET localhost:8080/books/test
 ###
 
-GET localhost:8080/books
+GET localhost:8080/books/204
 ###
 
 POST localhost:8080/books
