@@ -1,8 +1,11 @@
-document.getElementById('create-book-form').addEventListener('submit', createBook);
-
-function createBook(event) {
+function submitCreateBookForm(event) {
     event.preventDefault();
+    createBook();
+}
 
+document.getElementById('create-book-form').addEventListener('submit', submitCreateBookForm);
+
+function createBook() {
     let title = document.getElementById('title').value;
     let author = document.getElementById('author').value;
 
@@ -16,7 +19,7 @@ function createBook(event) {
             author: author
         })
     }).then(response => response.json())
-        .then(book => {
+        .then(() => {
             document.getElementById('title').value = '';
             document.getElementById('author').value = '';
             loadBooks();
@@ -33,12 +36,61 @@ function loadBooks() {
                 let row = document.createElement('tr');
                 let titleCell = document.createElement('td');
                 let authorCell = document.createElement('td');
+                let editCell = document.createElement('td');
+
                 titleCell.textContent = book.title;
                 authorCell.textContent = book.author;
+
+                let editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.onclick = function() { loadBookIntoForm(book.id); };
+                editCell.appendChild(editButton);
+
                 row.appendChild(titleCell);
                 row.appendChild(authorCell);
+                row.appendChild(editCell);
                 booksTableBody.appendChild(row);
             });
+        });
+}
+
+function loadBookIntoForm(id) {
+    fetch(`http://localhost:8080/books/${id}`)
+        .then(response => response.json())
+        .then(book => {
+            document.getElementById('title').value = book.title;
+            document.getElementById('author').value = book.author;
+
+            let form = document.getElementById('create-book-form');
+            form.removeEventListener('submit', submitCreateBookForm);
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                updateBook(id);
+            };
+        });
+}
+
+function updateBook(id) {
+    let title = document.getElementById('title').value;
+    let author = document.getElementById('author').value;
+
+    fetch(`http://localhost:8080/books/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: title,
+            author: author
+        })
+    }).then(response => response.json())
+        .then(book => {
+            document.getElementById('title').value = '';
+            document.getElementById('author').value = '';
+            let form = document.getElementById('create-book-form');
+            form.onsubmit = null;
+            form.addEventListener('submit', submitCreateBookForm);
+            loadBooks();
         });
 }
 
