@@ -43,11 +43,13 @@ function loadBooks() {
 
                 let editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
+                editButton.className = 'edit-button'
                 editButton.onclick = function() { loadBookIntoForm(book.id); };
                 actionCell.appendChild(editButton);
 
                 let deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-button'
                 deleteButton.onclick = function() {
                     if(confirm("Are you sure to delete this book?")) {
                         deleteBook(book.id);
