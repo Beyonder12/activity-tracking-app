@@ -111,11 +111,18 @@ function deleteBook(id) {
         method: 'DELETE',
     }).then(response => {
         if (response.ok) {
+            showToast();  // Show the toast
             loadBooks();
         } else {
             console.error(`Failed to delete book with ID ${id}`);
         }
     });
+}
+
+function showToast() {
+    let toast = document.getElementById("toast");
+    toast.className = "toast show";
+    setTimeout(function(){ toast.className = "toast"; }, 1000);
 }
 
 loadBooks();
