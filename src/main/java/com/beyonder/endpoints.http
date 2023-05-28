@@ -1,0 +1,13 @@
+GET localhost:8080/books/test
+###
+
+GET localhost:8080/books
+###
+
+POST localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "physics",
+  "author": "fajri"
+}
