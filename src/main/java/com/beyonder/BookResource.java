@@ -51,5 +51,18 @@ public class BookResource {
         return Response.ok(entity).status(200).build();
     }
 
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deleteBook(@PathParam("id") Long id) {
+        Book entity = Book.findById(id);
+        if (entity == null) {
+            throw new WebApplicationException("Book with id of " + id + " does not exist.", 404);
+        }
+
+        entity.delete();
+        return Response.noContent().build();
+    }
+
     // Additional methods for PUT, DELETE can be added here as per your requirement.
 }

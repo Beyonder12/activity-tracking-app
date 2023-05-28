@@ -36,7 +36,7 @@ function loadBooks() {
                 let row = document.createElement('tr');
                 let titleCell = document.createElement('td');
                 let authorCell = document.createElement('td');
-                let editCell = document.createElement('td');
+                let actionCell = document.createElement('td');
 
                 titleCell.textContent = book.title;
                 authorCell.textContent = book.author;
@@ -44,11 +44,16 @@ function loadBooks() {
                 let editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
                 editButton.onclick = function() { loadBookIntoForm(book.id); };
-                editCell.appendChild(editButton);
+                actionCell.appendChild(editButton);
+
+                let deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = function() { deleteBook(book.id); };
+                actionCell.appendChild(deleteButton);
 
                 row.appendChild(titleCell);
                 row.appendChild(authorCell);
-                row.appendChild(editCell);
+                row.appendChild(actionCell);
                 booksTableBody.appendChild(row);
             });
         });
@@ -92,6 +97,18 @@ function updateBook(id) {
             form.addEventListener('submit', submitCreateBookForm);
             loadBooks();
         });
+}
+
+function deleteBook(id) {
+    fetch(`http://localhost:8080/books/${id}`, {
+        method: 'DELETE',
+    }).then(response => {
+        if (response.ok) {
+            loadBooks();
+        } else {
+            console.error(`Failed to delete book with ID ${id}`);
+        }
+    });
 }
 
 loadBooks();
