@@ -1,5 +1,3 @@
-const EXPENSE_HOST_URL = 'http://localhost:8080'
-
 function submitCreateBookForm(event) {
     event.preventDefault();
     createExpense();
@@ -13,7 +11,7 @@ function createExpense() {
     let total = document.getElementById('total').value;
     let description = document.getElementById('description').value;
 
-    fetch(EXPENSE_HOST_URL + '/books', {
+    fetch(CONFIG.EXPENSE_HOST_URL + '/books', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,7 +31,7 @@ function createExpense() {
 }
 
 function loadBooks() {
-    fetch(EXPENSE_HOST_URL + '/books')
+    fetch(CONFIG.EXPENSE_HOST_URL + '/books')
         .then(response => response.json())
         .then(books => {
             let booksTableBody = document.getElementById('books-table').querySelector('tbody');
@@ -78,7 +76,7 @@ function loadBooks() {
 }
 
 function loadBookIntoForm(id) {
-    fetch(`${EXPENSE_HOST_URL}/books/${id}`)
+    fetch(`${CONFIG.EXPENSE_HOST_URL}/books/${id}`)
         .then(response => response.json())
         .then(book => {
             document.getElementById('title').value = book.title;
@@ -97,7 +95,7 @@ function updateBook(id) {
     let title = document.getElementById('title').value;
     let author = document.getElementById('author').value;
 
-    fetch(`${EXPENSE_HOST_URL}/books/${id}`, {
+    fetch(`${CONFIG.EXPENSE_HOST_URL}/books/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -118,7 +116,7 @@ function updateBook(id) {
 }
 
 function deleteBook(id) {
-    fetch(`${EXPENSE_HOST_URL}/books/${id}`, {
+    fetch(`${CONFIG.EXPENSE_HOST_URL}/books/${id}`, {
         method: 'DELETE',
     }).then(response => {
         if (response.ok) {
