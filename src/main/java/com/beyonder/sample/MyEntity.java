@@ -1,4 +1,4 @@
-package com.beyonder;
+package com.beyonder.sample;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;

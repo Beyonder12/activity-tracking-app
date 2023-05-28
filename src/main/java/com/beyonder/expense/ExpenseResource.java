@@ -1,4 +1,4 @@
-package com.beyonder;
+package com.beyonder.expense;
 
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -10,7 +10,7 @@ import java.util.List;
 @Path("/books")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class BookResource {
+public class ExpenseResource {
 
     @GET
     @Path("/test")
@@ -19,34 +19,35 @@ public class BookResource {
     }
 
     @GET
-    public List<Book> getAll() {
-        return Book.listAll();
+    public List<Expense> getAll() {
+        return Expense.listAll();
     }
 
     @POST
     @Transactional
-    public Book create(Book book) {
+    public Expense create(Expense book) {
         book.persist();
         return book;
     }
 
     @GET
     @Path("/{id}")
-    public Book getBook(@PathParam("id") Long id) {
-        return Book.findById(id);
+    public Expense getBook(@PathParam("id") Long id) {
+        return Expense.findById(id);
     }
 
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response updateBook(@PathParam("id") Long id, Book book) {
-        Book entity = Book.findById(id);
+    public Response updateBook(@PathParam("id") Long id, Expense book) {
+        Expense entity = Expense.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Book with id of " + id + " does not exist.", 404);
         }
 
-        entity.title = book.title;
+        entity.titleName = book.titleName;
         entity.author = book.author;
+        entity.description = book.description;
 
         return Response.ok(entity).status(200).build();
     }
@@ -55,7 +56,7 @@ public class BookResource {
     @Path("/{id}")
     @Transactional
     public Response deleteBook(@PathParam("id") Long id) {
-        Book entity = Book.findById(id);
+        Expense entity = Expense.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Book with id of " + id + " does not exist.", 404);
         }

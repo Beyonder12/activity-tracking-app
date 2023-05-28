@@ -18,6 +18,7 @@ function loadBookDetails(id) {
             if(book) {
                 document.getElementById('book-title').textContent = book.title;
                 document.getElementById('book-author').textContent = book.author;
+                document.getElementById('book-description').textContent = book.description ? book.description : '-';
             } else {
                 console.error('Received undefined book');
             }

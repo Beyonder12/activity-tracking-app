@@ -8,6 +8,7 @@ document.getElementById('create-book-form').addEventListener('submit', submitCre
 function createBook() {
     let title = document.getElementById('title').value;
     let author = document.getElementById('author').value;
+    let description = document.getElementById('description').value;
 
     fetch('http://localhost:8080/books', {
         method: 'POST',
@@ -16,7 +17,8 @@ function createBook() {
         },
         body: JSON.stringify({
             title: title,
-            author: author
+            author: author,
+            description: description ? description : '-'
         })
     }).then(response => response.json())
         .then(() => {

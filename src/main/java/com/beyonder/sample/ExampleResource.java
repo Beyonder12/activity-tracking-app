@@ -1,4 +1,4 @@
-package com.beyonder;
+package com.beyonder.sample;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
