@@ -48,7 +48,12 @@ function loadBooks() {
 
                 let deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
-                deleteButton.onclick = function() { deleteBook(book.id); };
+                deleteButton.onclick = function() {
+                    if(confirm("Are you sure to delete this book?")) {
+                        deleteBook(book.id);
+                    }
+
+                };
                 actionCell.appendChild(deleteButton);
 
                 row.appendChild(titleCell);
