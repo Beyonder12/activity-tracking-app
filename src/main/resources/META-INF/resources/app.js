@@ -1,16 +1,19 @@
+const EXPENSE_HOST_URL = 'http://localhost:8080'
+
 function submitCreateBookForm(event) {
     event.preventDefault();
-    createBook();
+    createExpense();
 }
 
 document.getElementById('create-book-form').addEventListener('submit', submitCreateBookForm);
 
-function createBook() {
+function createExpense() {
     let title = document.getElementById('title').value;
     let author = document.getElementById('author').value;
+    let total = document.getElementById('total').value;
     let description = document.getElementById('description').value;
 
-    fetch('http://localhost:8080/books', {
+    fetch(EXPENSE_HOST_URL + '/books', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,7 +21,8 @@ function createBook() {
         body: JSON.stringify({
             title: title,
             author: author,
-            description: description ? description : '-'
+            description: description ? description : '-',
+            total: total ? total : 0
         })
     }).then(response => response.json())
         .then(() => {
@@ -29,7 +33,7 @@ function createBook() {
 }
 
 function loadBooks() {
-    fetch('http://localhost:8080/books')
+    fetch(EXPENSE_HOST_URL + '/books')
         .then(response => response.json())
         .then(books => {
             let booksTableBody = document.getElementById('books-table').querySelector('tbody');
@@ -43,7 +47,7 @@ function loadBooks() {
                 // Create a link to the detail page for this book
                 let detailLink = document.createElement('a');
                 detailLink.textContent = book.title;
-                detailLink.href = `detail.html?id=${book.id}`;
+                detailLink.href = `./expense-detail-page/detail.html?id=${book.id}`;
                 titleCell.appendChild(detailLink);
 
                 authorCell.textContent = book.author;
@@ -74,7 +78,7 @@ function loadBooks() {
 }
 
 function loadBookIntoForm(id) {
-    fetch(`http://localhost:8080/books/${id}`)
+    fetch(`${EXPENSE_HOST_URL}/books/${id}`)
         .then(response => response.json())
         .then(book => {
             document.getElementById('title').value = book.title;
@@ -93,7 +97,7 @@ function updateBook(id) {
     let title = document.getElementById('title').value;
     let author = document.getElementById('author').value;
 
-    fetch(`http://localhost:8080/books/${id}`, {
+    fetch(`${EXPENSE_HOST_URL}/books/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -114,7 +118,7 @@ function updateBook(id) {
 }
 
 function deleteBook(id) {
-    fetch(`http://localhost:8080/books/${id}`, {
+    fetch(`${EXPENSE_HOST_URL}/books/${id}`, {
         method: 'DELETE',
     }).then(response => {
         if (response.ok) {

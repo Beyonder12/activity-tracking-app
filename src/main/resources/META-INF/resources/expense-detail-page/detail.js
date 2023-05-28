@@ -5,7 +5,7 @@ window.onload = function() {
     loadBookDetails(bookId);
 
     document.getElementById('back-button').addEventListener('click', function() {
-        window.location.href = 'index.html'; // Change this to the URL of your main page
+        window.location.href = '../index.html'; // Change this to the URL of your main page
     });
 }
 
@@ -18,6 +18,7 @@ function loadBookDetails(id) {
             if(book) {
                 document.getElementById('book-title').textContent = book.title;
                 document.getElementById('book-author').textContent = book.author;
+                document.getElementById('book-total').textContent = book.total;
                 document.getElementById('book-description').textContent = book.description ? book.description : '-';
             } else {
                 console.error('Received undefined book');

@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Expense extends PanacheEntity {
-    public String titleName;
+    public String title;
     public String author;
+    public Double total;
     public String description;
+
 }

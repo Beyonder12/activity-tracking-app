@@ -113,14 +113,16 @@
     </style>
 </head>
 <body>
-<h1>Book Management</h1>
+<h1>Expense Management</h1>
 
-<h2>Create a new book</h2>
+<h2>Create a new expense</h2>
 <form id="create-book-form">
     <label for="title">Title:</label><br>
     <input type="text" id="title" name="title"><br>
     <label for="author">Author:</label><br>
     <input type="text" id="author" name="author"><br>
+    <label for="total">Total:</label><br>
+    <input type="number" id="total" name="description"><br>
     <label for="description">Description:</label><br>
     <input type="text" id="description" name="description"><br>
     <input type="submit" value="Create">
@@ -141,6 +143,6 @@
 </table>
 
 <script src="app.js"></script>
-<div id="toast" class="toast">Book deleted successfully!</div>
+<div id="toast" class="toast">expense deleted successfully!</div>
 </body>
 </html>

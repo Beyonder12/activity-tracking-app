@@ -32,22 +32,23 @@ public class ExpenseResource {
 
     @GET
     @Path("/{id}")
-    public Expense getBook(@PathParam("id") Long id) {
+    public Expense getExpense(@PathParam("id") Long id) {
         return Expense.findById(id);
     }
 
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response updateBook(@PathParam("id") Long id, Expense book) {
+    public Response updateExpense(@PathParam("id") Long id, Expense expense) {
         Expense entity = Expense.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Book with id of " + id + " does not exist.", 404);
         }
 
-        entity.titleName = book.titleName;
-        entity.author = book.author;
-        entity.description = book.description;
+        entity.title = expense.title;
+        entity.author = expense.author;
+        entity.description = expense.description;
+        entity.total = expense.total;
 
         return Response.ok(entity).status(200).build();
     }
@@ -55,7 +56,7 @@ public class ExpenseResource {
     @DELETE
     @Path("/{id}")
     @Transactional
-    public Response deleteBook(@PathParam("id") Long id) {
+    public Response deleteExpense(@PathParam("id") Long id) {
         Expense entity = Expense.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Book with id of " + id + " does not exist.", 404);
