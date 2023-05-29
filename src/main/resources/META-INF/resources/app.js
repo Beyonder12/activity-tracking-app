@@ -26,6 +26,7 @@ function createExpense() {
         .then(() => {
             document.getElementById('title').value = '';
             document.getElementById('author').value = '';
+            showToast('Book created successfully.', 'green');
             loadBooks();
         });
 }
@@ -120,16 +121,17 @@ function deleteBook(id) {
         method: 'DELETE',
     }).then(response => {
         if (response.ok) {
-            showToast();  // Show the toast
+            showToast("Succesfully deleted", 'red');  // Show the toast
             loadBooks();
         } else {
             console.error(`Failed to delete book with ID ${id}`);
         }
     });
 }
-
-function showToast() {
+function showToast(message, color) {
     let toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.style.backgroundColor = color;
     toast.className = "toast show";
     setTimeout(function(){ toast.className = "toast"; }, 1000);
 }
